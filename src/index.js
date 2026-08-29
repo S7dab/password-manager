@@ -17,7 +17,12 @@ dns.setServers(["1.1.1.1","8.8.8.8"])
 
 const app = express();
 
-app.use(cors())
+app.use(cors({
+  origin: "http://localhost:5173",   // tumhara frontend ka local URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
 
@@ -32,10 +37,12 @@ app.get("/", (req, res) => {
 const PORT = process.env.PORT;
 
 db_connection()
-  .then((response) => {
-    console.log(`db connected on ${response.connection._connectionString}`);
+  .then((db) => {
+    // console.log(`db connected on ${response.connection._connectionString}`);
+    console.log(process.env.DEV_TYPE == "local" ? db.connection._connectionString : "db connected");
     app.listen(PORT, function () {
-      console.log(`Server running on http://localhost:${PORT}`);
+      // console.log(`Server running on http://localhost:${PORT}`);
+       console.log(process.env.DEV_TYPE == "local" ? `server running on http://localhost:${PORT}` : "server running");
     });
   })
   .catch((error) => {
