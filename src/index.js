@@ -18,7 +18,7 @@ dns.setServers(["1.1.1.1","8.8.8.8"])
 const app = express();
 
 app.use(cors({
-  origin: "http://localhost:5173",   // tumhara frontend ka local URL
+  origin: ["http://localhost:5173", "https://password-manager-app1.netlify.app/login"],  // tumhara frontend ka local URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
