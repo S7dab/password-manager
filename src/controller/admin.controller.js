@@ -1,6 +1,6 @@
 import passwordStorageModel from "../model/passwordStorage.js";
 import userModel from "../model/user.model.js";
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 
 // Admin function to get all users
 async function getAllUserDetails(req, res) {
@@ -49,23 +49,23 @@ async function adminDeleteUser(req, res) {
     });
 
     // using nodeMiller
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      port: 587,
-      secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
+    // const transporter = nodemailer.createTransport({
+    //   service: "gmail",
+    //   port: 587,
+    //   secure: false, // use STARTTLS (upgrade connection to TLS after connecting)
+    //   auth: {
+    //     user: process.env.SMTP_USER,
+    //     pass: process.env.SMTP_PASS,
+    //   },
+    // });
 
-    const info = await transporter.sendMail({
-      from: process.env.SMTP_USER, // sender address
-      to: user.email, // list of recipients
-      subject: "Account Deletion Confirmation - Password Vault", // subject line
-      text: "Hello ?", // plain text body
-      html: "<b>This is to confirm that your account with Password Vault has been permanently deleted along with all associated credential records stored in our system.If you did not request this action or believe this was done in error, please contact our support team immediately.Thank you, Password Vault Support Team</b>", // HTML body
-    });
+    // const info = await transporter.sendMail({
+    //   from: process.env.SMTP_USER, // sender address
+    //   to: user.email, // list of recipients
+    //   subject: "Account Deletion Confirmation - Password Vault", // subject line
+    //   text: "Hello ?", // plain text body
+    //   html: "<b>This is to confirm that your account with Password Vault has been permanently deleted along with all associated credential records stored in our system.If you did not request this action or believe this was done in error, please contact our support team immediately.Thank you, Password Vault Support Team</b>", // HTML body
+    // });
 
     return res.status(200).json({
       status: true,
